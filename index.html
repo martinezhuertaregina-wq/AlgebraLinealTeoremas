@@ -1,0 +1,1285 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Álgebra Lineal — Teoremas y Demostraciones</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+      window.MathJax = { tex: { inlineMath: [["$","$"],["\\(","\\)"]], displayMath: [["$$","$$"],["\\[","\\]"]] }, svg: { fontCache: 'global' } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+    <style>
+      /* Variables de color para el tema violeta/índigo */
+      :root{ 
+        --grad-from:#4c1d95; /* deep indigo-900 */ 
+        --grad-to:#a855f7; /* violet-500 */ 
+      }
+      body{ font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; }
+      /* Estilo de texto principal */
+      .hero-text { 
+        font-size: 3.75rem; /* text-6xl */
+        line-height: 1.1; 
+      }
+      @media (min-width: 640px) {
+        .hero-text { font-size: 4.5rem; } /* sm:text-7xl */
+      }
+    </style>
+</head>
+
+<body class="bg-gradient-to-b from-white via-indigo-50/50 to-white text-slate-800 selection:bg-violet-200/60">
+
+    <header class="sticky top-0 z-30 backdrop-blur-md bg-white/80 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="h-8 w-8 rounded-xl bg-gradient-to-tr from-[var(--grad-from)] to-[var(--grad-to)] shadow-lg" aria-hidden></div>
+                <span class="font-extrabold tracking-tight text-xl text-slate-900">Álgebra Lineal</span>
+            </div>
+        </div>
+    </header>
+
+    
+    <section class="relative overflow-hidden">
+        <div class="absolute -inset-x-8 -top-24 h-64 bg-gradient-to-r from-[var(--grad-from)]/10 via-violet-400/10 to-[var(--grad-to)]/10 blur-3xl -z-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h1 class="hero-text font-extrabold tracking-tighter text-slate-900">
+                        Colección de <br>Teoremas y <span class="bg-gradient-to-r from-[var(--grad-from)] to-[var(--grad-to)] bg-clip-text text-transparent">Demostraciones Clave</span>
+                    </h1>
+                    <p class="mt-8 text-xl text-slate-600 max-w-xl">
+                        Recurso de estudio con enunciados concisos y explicaciones detalladas. Cubre propiedades de matrices, combinaciones lineales y fundamentos de sistemas de ecuaciones.
+                    </p>
+                    
+                    <div class="relative w-full max-w-xs md:max-w-sm mt-8">
+                        <input type="text" id="teorema-search" placeholder="Buscar Teorema (ej. 1.4)" 
+                            class="w-full py-2 pl-4 pr-10 border border-slate-300 rounded-lg text-sm focus:ring-violet-500 focus:border-violet-500 transition duration-150"
+                            onkeyup="handleSearch(event)" />
+                        <svg class="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+
+                </div>
+
+                <div class="relative hidden lg:block">
+                    <div class="rounded-2xl border border-white shadow-xl bg-white p-8">
+                        <h3 class="text-xl font-bold text-slate-900 mb-4">Estructura Algebraica de las Matrices</h3>
+                        <p class="text-base text-slate-700 mb-6 leading-relaxed">
+                            Estas reglas gobiernan la suma, multiplicación, inversión y transposición matricial, siendo la base para todos los demás teoremas.
+                            Por ejemplo:
+                            La propiedad asociativa 
+                            $$(A(BC) = (AB)C)$$ 
+                            Es crucial, ya que garantiza que el orden en que se multiplican tres matrices no afecta el resultado final.
+                        </p>
+                        <figcaption class="text-xs text-slate-500 mt-3 text-center">Visualización de una operación matricial clave.</figcaption>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="teoremas" class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+
+            
+            
+            
+                    <article id="teo11" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+
+                <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+
+                    <h2 class="text-2xl font-bold text-violet-800">Teorema 1.1 </h2>
+
+                    <p class="text-slate-600 mt-2 text-lg">
+
+                        Todo sistema de ecuaciones lineales homogéneas que tiene más incógnitas que ecuaciones tiene infinidad de soluciones.
+
+                    </p>
+
+                </header>
+
+                <div class="p-6 md:p-10 space-y-6">
+
+                    <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+
+                        <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+
+                            Demostración 
+
+                            <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+
+                        </summary>
+
+                        <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+
+                            <p class="text-sm italic mb-4">
+
+                                Demostración: Sea el siguiente sistema de ecuaciones son homogéneas:
+
+                            </p>
+
+
+
+                            <figure class="mt-4 mb-6 overflow-auto">
+
+                                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700">
+
+$$
+
+\begin{array}{ccccccccc}
+
+a_{11}x_1 & + & a_{12}x_2 & + & \dots & + & a_{1n}x_n & = & 0 \\
+
+a_{21}x_1 & + & a_{22}x_2 & + & \dots & + & a_{2n}x_n & = & 0 \\
+
+\vdots & & \vdots & & \ddots & & \vdots & & \vdots \\
+
+a_{m1}x_1 & + & a_{m2}x_2 & + & \dots & + & a_{mn}x_n & = & 0
+
+\end{array}
+
+$$
+
+                                </div>
+
+                                
+
+                                <p class="mt-6 font-bold text-base text-slate-900">Gauss-Jordan:</p>
+
+                                <div class="mt-4 bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 text-center">
+
+$$
+
+\begin{bmatrix}
+
+ r_{11} & r_{12} & \dots & r_{1n} & | & 0 \\
+
+ 0 & r_{22} & \dots & r_{2n} & | & 0 \\
+
+ \vdots & \vdots & \ddots & \vdots & | & \vdots \\
+
+ 0 & 0 & \dots & r_{rn} & | & 0 \\
+
+ 0 & 0 & \dots & 0 & | & 0 \\
+
+ \vdots & \vdots & \ddots & \vdots & | & \vdots \\
+
+ 0 & 0 & \dots & 0 & | & 0
+
+\end{bmatrix}
+
+$$
+
+                                </div>
+
+
+
+                                <figcaption class="text-xs text-slate-500 mt-2">
+
+                                De modo que el sistema tiene infinidad de Soluciones
+
+                                     Matriz aumentada después de la reducción de Gauss-Jordan. Si el número de incógnitas n es mayor que el número de ecuaciones m, la existencia de al menos una columna sin pivote genera variables libres y varibles dependientes .
+
+                                </figcaption>
+
+                            </figure>
+
+                            
+
+                        
+
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </article>
+
+
+
+            <article id="teo12" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300"><header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl"><h2 class="text-2xl font-bold text-violet-800">Teorema  1.2 </h2><p class="text-slate-600 mt-2 text-lg">Sean A_1, A_2,  matrices del mismo tamaño A es una combinación lineal si existen escalares \(\alpha_1,\dots,\alpha_n\in\mathbb{R}\) tales que \(A = \alpha_1A_1 + \cdots + \alpha_nA_n\)</p></header></article>
+
+
+
+
+
+
+
+<article id="teo13" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.3 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sean A y B matrices cuadradas del mismo tamaño y sea K un escalar o número real.  Se cumplen las siguientes propiedades:
+        </p>
+        <ol class="mt-4 space-y-2 text-slate-700 list-decimal list-inside font-medium pl-4">
+            <li>Entonces \(\mathrm{tr}(A+B) = \mathrm{tr}(A) + \mathrm{tr}(B)\)</li>
+            <li>\(\mathrm{tr}(KA) = K \mathrm{tr}(A)\)</li>
+        </ol>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+           <details class="group">
+
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between p-4 bg-violet-50 rounded-xl border border-violet-200">
+
+                <span class="text-base font-bold text-slate-900">Demostración</span>
+
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium ml-4">Ver detalles</span>
+
+            </summary>
+
+            
+
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4 px-4">
+                <p class="text-base font-bold text-slate-900 mb-2">Demostración (a) — Aditividad:</p>
+                <p class="text-sm italic mb-4">
+                    Como \((A+B)_{ij} = A_{ij} + B_{ij}\), a partir de la diagonal principal se tiene:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto">
+$$
+(A+B)_{ii} = A_{ii} + B_{ii}
+$$
+$$
+\mathrm{tr}(A + B) = \sum_{i=1}^{n}(A_{ii} + B_{ii}) = \sum_{i=1}^{n}A_{ii} + \sum_{i=1}^{n}B_{ii} = \mathrm{tr}(A) + \mathrm{tr}(B)
+$$
+                </div>
+
+                <p class="text-base font-bold text-slate-900 mt-6 mb-2">Demostración (b) — Homogeneidad:</p>
+                <p class="text-sm italic mb-4">
+                    Como \((KA)_{ij} = KA_{ij}\), en particular:
+                </p>
+                 <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto">
+$$
+(KA)_{ii} = KA_{ii}
+$$
+$$\mathrm{tr}(KA) = \sum_{i=1}^{n}(KA)_{ii} = \sum_{i=1}^{n}KA_{ii} = K\sum_{i=1}^{n}A_{ii} = K\mathrm{tr}(A)$$
+                 </div>
+                 <p class="mt-3 text-sm italic">Así, \(\mathrm{tr}(KA) = K\mathrm{tr}(A)\).</p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<article id="teo14" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.4</h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea A, B y C matrices cuyos tamaños permitan las operaciones abajo anunciadas, y sea $m, n$ escalares que se cumplen:
+        </p>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        
+        <ol class="space-y-2 text-slate-700 list-decimal list-inside font-medium pl-4">
+            <li>\(A+B=B+A\) </li>
+            <li>\(A+(B+C)=(A+B)+C\) </li>
+            <li> \(A(BC)=(AB)C\) </li>
+            <li>\(A(B+C)=AB+AC\) </li>
+            <li>\((A+B)C=AC+BC\) </li>
+            <li>\(m(A+B)=mA+mB\) </li>
+            <li>\((m+n)A=mA+nA\) </li>
+            <li>\((mA)B=A(mB)=mAB\)</li>
+            <li>\(m(nA)=(mn)A\)</li>
+        </ol>
+        
+        <details class="group">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between p-4 bg-violet-50 rounded-xl border border-violet-200">
+                <span class="text-base font-bold text-slate-900">Demostración </span>
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium ml-4">Ver detalles</span>
+            </summary>
+            
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4 px-4">
+                <p class="text-base font-bold text-slate-900 mb-2">Demostración (c)</p>
+                
+                <figure class="mt-4 mb-6 overflow-auto">
+                    <div class="bg-slate-100 p-4 rounded-xl text-xs border border-slate-200 text-slate-700 mb-4">
+                        <div class="text-center font-mono">
+                            $$
+                            \begin{array}{ccc}
+                                A & B & C \\
+                                m \times n & n \times r & r \times p \\
+                            \end{array}
+                            $$
+                        </div>
+                        <p class="mt-4">Así $A(BC)$ y $(AB)C$ son matrices de tamaño $m \times p$</p>
+                        <p class="mt-2 text-sm italic">Ahora falta probar que sus entradas son iguales:</p>
+                    </div>
+                </figure>
+
+                <p class="text-sm italic mb-2">Para $[A(BC)]_{ij}$:</p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+$$
+[A(BC)]_{ij} = \sum_{k=1}^{P} A_{ik} (BC)_{kj}
+$$
+$$
+(BC)_{kj} = \sum_{r=1}^{P} B_{kr} C_{rj}
+$$
+$$
+[A(BC)]_{ij} = \sum_{k=1}^{P} A_{ik} \left( \sum_{r=1}^{P} B_{kr} C_{rj} \right)
+$$
+$$
+[A(BC)]_{ij} = \sum_{k=1}^{P} \sum_{r=1}^{P} A_{ik} B_{kr} C_{rj}
+$$
+                </div>
+
+                <p class="mt-6 font-bold text-base text-slate-900 mb-2">Para $[(AB)C]_{ij}$:</p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+$$
+[(AB)C]_{ij} = \sum_{k=1}^{P} (AB)_{ik} C_{kj}
+$$
+$$
+(AB)_{ik} = \sum_{r=1}^{P} A_{ir} B_{rk}
+$$
+$$
+[(AB)C]_{ij} = \sum_{k=1}^{P} \left( \sum_{r=1}^{P} A_{ir} B_{rk} \right) C_{kj}
+$$
+$$
+[(AB)C]_{ij} = \sum_{k=1}^{P} \sum_{r=1}^{P} A_{ir} B_{rk} C_{kj}
+$$
+                </div>
+
+                <p class="mt-3 text-sm italic">
+                    Dado que las sumas son finitas y los elementos escalares cumplen la propiedad asociativa y conmutativa del producto, al intercambiar los índices de suma, se verifica la igualdad.
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <article id="teo15" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+
+                <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+
+                    <h2 class="text-2xl font-bold text-violet-800">Teorema 1.5 </h2>
+
+                    <p class="text-slate-600 mt-2 text-lg">Para toda matriz A compatible y todo escalar m, se cumplen las propiedades relacionadas con la matriz cero 0:</p>
+
+                </header>
+
+                <div class="p-6 md:p-10">
+
+                    <ol class="space-y-3 text-slate-700list-decimal list-inside font-medium  pl-4">
+
+                        <li> (a) \(A+0=A\) </li>
+
+                        <li> (b)\(A+(-A)=A-A=0\) </li>
+
+                        <li> (c) \(0A=0\) </li>
+
+                        <li> (d)\(A0=0\) </li>
+
+                        <li> (e)\(0A=0\) </li>
+
+                    </ul>
+
+                </div>
+
+            </article>
+
+
+
+
+
+
+<article id="teo16" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.6 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea A una matriz de tamaño $n \times n$ y sea R su forma escalonada reducida por renglones (RREF) o R tiene por lo menos un renglon de ceros o R es la matriz indentinad $I_n$
+        </p>
+        
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-base font-bold text-slate-900 mb-2">Demostración: Forma escalonada reducida</p>
+                
+                <p class="text-sm italic mb-4">
+                    Si R es la forma escalonada reducida de A, entonces A o R  tiene por lo menos un renglón de ceros o no la tiene.
+                </p>
+                
+                <p class="text-sm italic mb-4">
+                    Si  R no tiene renglones de ceros, así al recorrer de arriba hacia abajo a la matriz  R , los unos principales están en la diagonal principal y por lo que R escalonada reducida, los demás elementos de la diagonal principal son iguales a cero de modo que Res la matriz identidad $I_n$
+                </p>
+                
+                <p class="mt-4 text-xs text-slate-500">
+                    Esto implica que si una matriz cuadrada A es equivalente por renglones a la identidad $I_n$ entonces A es invertible.
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+<article id="teo17" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.7 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea A una matriz cuadrada e invertible y sea B una inversa de A Si  C es otra inversa de A, entonces se debe tener que:
+        </p>
+        <p class="mt-4 text-xl font-bold text-center text-slate-900">
+            $$\mathbf{C} = \mathbf{B}$$
+        </p>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-base font-bold text-slate-900 mb-4">Demostración</p>
+                
+                <p class="text-sm italic mb-4">
+                    Como B es una inversa de A , se tiene:
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+                    $$ \mathbf{A}\mathbf{B} = \mathbf{I} \quad (1) $$
+                </div>
+                
+                <p class="text-sm italic mb-4">
+                    Multiplica a (1) por C por la izquierda (izq):
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+                    $$ \mathbf{C}(\mathbf{A}\mathbf{B}) = \mathbf{C}\mathbf{I} $$
+                </div>
+
+                <p class="text-sm italic mb-4">
+                    Por el Teorema 1.4(c) (asociatividad) y propiedad de la identidad (CI=C)
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+                    $$ (\mathbf{C}\mathbf{A})\mathbf{B} = \mathbf{C} $$
+                </div>
+                
+                <p class="text-sm italic mb-4">
+                    Como C es otra inversa de A, CA=I, así:
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+                    $$ \mathbf{I}\mathbf{B} = \mathbf{C} $$
+                </div>
+
+                <p class="text-sm italic font-bold mt-4">
+                    Finalmente, por la propiedad de la matriz identidad IB=B , se concluye:
+                </p>
+                <p class="text-lg font-extrabold text-center text-violet-800 mt-2">
+                    $$\mathbf{B} = \mathbf{C}$$
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+<article id="teo18" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.8 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea 
+            $$A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$$
+            una matriz cuadrada de $2 \times 2$ Si ad - bc=0 , entonces A es invertible y su inversa es:
+        </p>
+        <p class="mt-4 text-xl font-bold text-center text-slate-900">
+            $$A^{-1} = \frac{1}{ad-bc} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$$
+        </p>
+    </header>
+    <div class="p-6 md:p-10">
+        <p class="text-slate-700 text-sm italic">
+            El valor ad - bc es el determinante de la matriz A. Una matriz $2 \times 2$ es invertible si y solo si su determinante no es cero.
+        </p>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<article id="teo19" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.9</h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea A y B matrices del mismo tamaño. Si $\mathbf{A}\mathbf{B}$ es invertible, entonces, tanto A como B  deben ser invertibles.
+        </p>
+    </header>
+    <div class="p-6 md:p-10">
+        <p class="text-slate-700 text-sm italic">
+            Este teorema es fundamental porque el producto de dos matrices invertibles (AB) también es invertible y su inversa es $\mathbf{B}^{-1}\mathbf{A}^{-1}$.
+        </p>
+    </div>
+</article>
+
+
+
+
+
+
+<article id="teo110" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.10 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea A una matriz cuadrada $n \times n$
+        </p>
+        <ol class="mt-4 space-y-2 text-slate-700 list-decimal list-inside font-medium pl-4">
+            <li>Si B  es una matriz del mismo tamaño que A , tal que $\mathbf{A}\mathbf{B} = \mathbf{I}$, entonces A  es invertible y $\mathbf{B} = \mathbf{A}^{-1}$</li>
+            <li>Si B es una matriz del mismo tamaño que  A , tal que $\mathbf{B}\mathbf{A} = \mathbf{I}$, entonces A es invertible y $\mathbf{B} = \mathbf{A}^{-1}$.</li>
+        </ol>
+   </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración            <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-base font-bold text-slate-900 mb-4">Ejemplo del inciso (a)</p>
+                
+                <p class="text-sm italic mb-4">
+                    Sea la matriz $\mathbf{A}$:
+                </p>
+                <div class="bg-white p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A} = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} $$
+                </div>
+                
+                <p class="text-sm italic font-bold mb-2">1. Determinante de $\mathbf{A}$:</p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+                    $$ \mathrm{det}(\mathbf{A}) = (1)(4) - (2)(3) = 4 - 6 = -2 \neq 0 $$
+                    <p class="mt-2">Por lo tanto, $\mathbf{A}$ es invertible.</p>
+                </div>
+
+                <p class="text-sm italic font-bold mb-2">2. Inversa de $\mathbf{A}$:</p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4">
+                    $$ \mathbf{A}^{-1} = \frac{1}{\mathrm{det}(\mathbf{A})} \begin{bmatrix} d & -b \\ -c & a \end{bmatrix} = \frac{1}{-2} \begin{bmatrix} 4 & -2 \\ -3 & 1 \end{bmatrix} = \begin{bmatrix} -2 & 1 \\ 1.5 & -0.5 \end{bmatrix} $$
+                    <p class="mt-2">Sea entonces: $$\mathbf{B} = \mathbf{A}^{-1} = \begin{bmatrix} -2 & 1 \\ 1.5 & -0.5 \end{bmatrix}$$</p>
+                </div>
+
+                <p class="text-sm italic font-bold mb-2">3. Verificación de $\mathbf{A}\mathbf{B} = \mathbf{I}$:</p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A}\mathbf{B} = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} \begin{bmatrix} -2 & 1 \\ 1.5 & -0.5 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \mathbf{I} $$
+                    <p class="mt-2">Por el Teorema 1.10, $\mathbf{B} = \mathbf{A}^{-1}$.</p>
+                </div>
+                
+                <hr class="my-4 border-violet-300">
+                
+                <p class="text-base font-bold text-slate-900 mb-4">Ejemplo del inciso (b)</p>
+                
+                <p class="text-sm italic mb-4">
+                    Usando las mismas matrices $\mathbf{A}$ y $\mathbf{B}$, ahora verificamos $\mathbf{B}\mathbf{A} = \mathbf{I}$:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{B}\mathbf{A} = \begin{bmatrix} -2 & 1 \\ 1.5 & -0.5 \end{bmatrix} \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = \mathbf{I} $$
+                </div>
+
+                <p  mt-4">
+                    Conclusión: En ambos casos, se cumple que  A  es invertible y B = \mathbf{A}^{-1}$ Esto demuestra el Teorema 1.10 para los incisos (a) y (b).
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+
+<article id="teo111" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.11</h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sean A y B matrices cuyos tamaños permiten las operaciones abajo enunciadas y sea $k \in \mathbb{R}$ (un escalar) Entonces se cumple:
+        </p>
+    </header>
+    <div class="p-6 md:p-10">
+        <ol class="mt-4 space-y-4 text-slate-700 list-decimal list-inside font-medium pl-4">
+            <li>
+                <p class="text-lg">
+                    <span class="font-bold text-slate-900 ml-2">$$(\mathbf{A}^T)^T = \mathbf{A}$$</span>
+                </p>
+            </li>
+            <li>
+                <p class="text-lg">
+                    <span class="font-bold text-slate-900 ml-2">$$(\mathbf{A} + \mathbf{B})^T = \mathbf{A}^T + \mathbf{B}^T$$</span>
+                </p>
+            </li>
+            <li>
+                <p class="text-lg">             <span class="font-bold text-slate-900 ml-2">$$(\mathbf{A}\mathbf{B})^T = \mathbf{B}^T\mathbf{A}^T$$</span>
+                </p>
+            </li>
+            <li>
+                <p class="text-lg">
+                    <span class="font-bold text-slate-900 ml-2">$$ (k\mathbf{A})^T = k\mathbf{A}^T $$</span>
+                </p>
+            </li>
+        </ol>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+<article id="teo112" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.12 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Si $\mathbf{A}$ es una matriz cuadrada invertible y $k \in \mathbb{R}$, $k \neq 0$ y $n \in \mathbb{N}$ (número natural), entonces se cumplen las siguientes propiedades:
+        </p>
+    </header>
+    <div class="p-6 md:p-10">
+        <ol class="mt-4 space-y-4 text-slate-700 list-decimal list-inside font-medium pl-4">
+            <li>
+                <p class="text-lg">Doble Inversa:
+                    <span class="font-bold text-slate-900 ml-2">$$(\mathbf{A}^{-1})^{-1} = \mathbf{A}$$</span>
+                </p>
+            </li>
+            <li>
+                <p class="text-lg">Potencia de la Inversa:
+                    <span class="font-bold text-slate-900 ml-2">$$(\mathbf{A}^n)^{-1} = (\mathbf{A}^{-1})^n$$</span>
+                </p>
+            </li>
+            <li>
+                <p class="text-lg">Inversa de un Producto por Escalar:
+                    <span class="font-bold text-slate-900 ml-2">$$ (k\mathbf{A})^{-1} = \frac{1}{k}\mathbf{A}^{-1} $$</span>
+                </p>
+            </li>
+        </ol></header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                
+                <p class="text-base font-bold text-slate-900 mb-4">Demostración (a)</p>
+                <p class="text-sm italic mb-2">Sea la definición de inversa: </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A}\mathbf{A}^{-1} = \mathbf{I} $$
+                </div>
+                <p class="text-sm italic mb-4">
+                    La matriz A es la matriz que, multiplicada por $\mathbf{A}^{-1}$ (por la izquierda), resulta en la identidad I Por la definición de la inversa, esto significa que A es la inversa de $\mathbf{A}^{-1}$.
+                </p>
+                <p class="text-lg font-bold text-center text-slate-900 mt-4">
+                    De modo que $(\mathbf{A}^{-1})^{-1} = \mathbf{A}$.
+                </p>
+
+                <hr class="my-6 border-violet-300">
+                
+                <p class="text-base font-bold text-slate-900 mb-4">Demostrar (b): $(\mathbf{A}^n)^{-1} = (\mathbf{A}^{-1})^n$</p>
+                <p class="text-sm italic mb-4">
+                    Para probar que $(\mathbf{A}^{-1})^n$ es la inversa de $\mathbf{A}^n$ debemos mostrar que su producto da la identidad $\mathbf{I}$
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ (\mathbf{A}^n)(\mathbf{A}^{-1})^n = (\mathbf{A}\cdot\mathbf{A}\cdots\mathbf{A})(\mathbf{A}^{-1}\cdot\mathbf{A}^{-1}\cdots\mathbf{A}^{-1}) = \cdots = \mathbf{I} $$
+                </div>
+                <p class="text-sm italic mb-4">
+                    De igual forma, multiplicando en orden inverso:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ (\mathbf{A}^{-1})^n(\mathbf{A}^n) = (\mathbf{A}^{-1}\cdot\mathbf{A}^{-1}\cdots\mathbf{A}^{-1})(\mathbf{A}\cdot\mathbf{A}\cdots\mathbf{A}) = \cdots = \mathbf{I} $$
+                    <p class="mt-2">Por lo tanto: $$(\mathbf{A}^n)^{-1} = (\mathbf{A}^{-1})^n$$</p>
+                </div>
+                
+                <hr class="my-6 border-violet-300">
+
+                <p class="text-base font-bold text-slate-900 mb-4">Demostrar (c): $(k\mathbf{A})^{-1} = \frac{1}{k}\mathbf{A}^{-1}$</p>
+                <p class="text-sm italic mb-4">
+                    Probar que $\frac{1}{k}\mathbf{A}^{-1}$ es la inversa de $k\mathbf{A}$ requiere mostrar que su producto da la identidad $\mathbf{I}$
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ (k\mathbf{A})\left(\frac{1}{k}\mathbf{A}^{-1}\right) = \left(k\cdot\frac{1}{k}\right)(\mathbf{A}\mathbf{A}^{-1}) = (1)(\mathbf{I}) = \mathbf{I} $$
+                </div>
+                <p class="text-sm italic mb-4">
+                    Y el producto en orden inverso:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \left(\frac{1}{k}\mathbf{A}^{-1}\right)(k\mathbf{A}) = \left(\frac{1}{k}\cdot k\right)(\mathbf{A}^{-1}\mathbf{A}) = (1)(\mathbf{I}) = \mathbf{I} $$
+                </div>
+                <p class="text-sm italic font-bold mt-4">
+                    De modo que, por definición, $\frac{1}{k}\mathbf{A}^{-1}$ es la inversa de $k\mathbf{A}$
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+<article id="teo113" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.13 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Si A es una matriz cuadrada $n \times n$ es invertible, entonces $\mathbf{A}^T$ también es invertible y se cumple:
+        </p>
+        <p class="mt-4 text-xl font-bold text-center text-slate-900">
+            $$ (\mathbf{A}^T)^{-1} = (\mathbf{A}^{-1})^T $$
+        </p>
+   </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                
+                <p class="text-base font-bold text-slate-900 mb-4">Demostración</p>
+                <p class="text-sm italic mb-4">
+                    El producto de $\mathbf{A}^T$ por $(\mathbf{A}^{-1})^T$ debe ser igual a la matriz identidad I
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A}^T [(\mathbf{A}^{-1})^T] = \mathbf{I} $$
+                </div>
+
+                <p class="text-sm italic mb-4">
+                    Partimos de la definición de la inversa y aplicamos la propiedad de la transpuesta a ambos lados, recordando que $\mathbf{I}^T = \mathbf{I}$
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ (\mathbf{A}\mathbf{A}^{-1})^T = \mathbf{I}^T \longrightarrow (\mathbf{A}\mathbf{A}^{-1})^T = \mathbf{I} $$
+                </div>
+
+                <p class="text-sm italic mb-4">
+                    Aplicando el Teorema 1.11(c) $(\mathbf{A}\mathbf{B})^T = \mathbf{B}^T\mathbf{A}^T$ al producto $\mathbf{A}\mathbf{A}^{-1}$
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ (\mathbf{A}^{-1})^T \mathbf{A}^T = \mathbf{I} $$
+                </div>
+
+                <p class="text-sm italic font-bold mt-4">
+                    Dado que el producto de $\mathbf{A}^T$ por $(\mathbf{A}^{-1})^T$ da la identidad I (tanto por la izquierda como por la derecha), por definición de la inversa se concluye:
+                </p>
+                
+                <p class="text-lg font-bold text-center text-violet-800 mt-2">
+                    De modo que
+                    $$ (\mathbf{A}^T)^{-1} = (\mathbf{A}^{-1})^T $$
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+<article id="teo114" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.14 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea A una matriz de tamaño $m \times n$ y sea E la matriz elemental que se obtiene al aplicar (directamente) una cierta operación elemental por renglón a la matriz identidad $\mathbf{I}_n$
+        </p>
+        <p class="text-slate-600 mt-2 text-lg">
+            Entonces:Sea es la matriz que se obtiene al aplicar directamente la misma operación elemental por renglón a la matriz A
+        </p>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-base font-bold text-slate-900 mb-4">Demostración</p>
+                <p class="text-sm italic mb-4">
+                    Tenemos que a (matriz de $m \times n$) es:
+                </p>
+                <div class="bg-white p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A} = \begin{bmatrix} r_1 \\ r_2 \\ \vdots \\ r_m \end{bmatrix} $$
+                </div>
+                <p class="text-sm italic mb-4">
+                    Y supongamos como primer caso, con $\mathbf{E}_1$ la matriz elemental obtenida al aplicar $(R_i \to R_i + cR_j)$ a I.
+                </p>
+                <p class="text-sm italic mb-4">
+                    La matriz identidad I y la matriz elemental $\mathbf{E}_1$ son (mostrando solo la fila i modificada):
+                </p>
+                <div class="bg-white p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 flex justify-around">
+                    $$ \mathbf{I}_m = \begin{bmatrix} \vdots \\ r_i \\ \vdots \\ r_j \\ \vdots \end{bmatrix} \quad \mathbf{E}_1 = \begin{bmatrix} \vdots \\ r_i + c r_j \\ \vdots \\ r_j \\ \vdots \end{bmatrix} $$
+                </div>
+                
+                <p class="text-sm italic mb-4">
+                    Luego, al multiplicar $\mathbf{E}\mathbf{A}$
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{E}\mathbf{A} = \begin{bmatrix} r_1\mathbf{A} \\ r_2\mathbf{A} \\ \vdots \\ (r_i + c r_j)\mathbf{A} \\ \vdots \\ r_m\mathbf{A} \end{bmatrix} = \begin{bmatrix} r_1 \\ r_2 \\ \vdots \\ r_i + c r_j \\ \vdots \\ r_m \end{bmatrix} \quad \cdots (1) $$
+                </div>
+                
+               <p class="text-slate-600 mt-2 text-lg">
+                    Por otro lado, la operación elemental directamente aplicada a A es:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ (R_i \to R_i + cR_j)(\mathbf{A}) = \begin{bmatrix} r_1 \\ r_2 \\ \vdots \\ r_i + c r_j \\ \vdots \\ r_m \end{bmatrix} \quad \cdots (2) $$
+                </div>
+
+                <p class="text-sm italic font-bold mt-4">
+                    De (1) y (2):
+                </p>
+                <p class="text-sm italic mb-4">
+                    Vemos que se cumple: $\mathbf{E}\mathbf{A} = (R_i \to R_i + cR_j)(\mathbf{A})$
+                </p>
+            <p class="text-slate-600 mt-2 text-lg">
+                    De igual forma se tiene con las otras operaciones por renglón (intercambio de renglones y multiplicación por escalar).
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<article id="teo115" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.15 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Toda matriz elemental es invertible y su inversa es también una matriz elemental.
+        </p>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                
+                <p class="text-base font-bold text-slate-900 mb-4">Demostración</p>
+                <p class="text-sm italic mb-4">
+                    Sea E una matriz elemental de $n \times n$ que se obtiene al aplicar una operación elemental por renglón a la matriz identidad I
+                </p>
+                <p class="text-sm italic mb-4">
+                    Sea $\mathbf{E}_0$ la matriz elemental que se obtuvo al aplicar a la matriz identidad I la operación elemental inversa. Luego, por el T. 1.13 (Propiedad de la Matriz Invertible/Inversa Única) se tiene:
+                </p>
+                
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{E}\mathbf{E}_0 = \mathbf{I} $$
+                    $$ \mathbf{E}_0\mathbf{E} = \mathbf{I} $$
+                </div>
+
+                <p class="text-sm italic font-bold mt-4">
+                    De manera que E(toda matriz elemental) es invertible y su inversa $\mathbf{E}_0$ es también una matriz elemental.
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+<article id="teo116" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.16 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea $\mathbf{A}$ una matriz cuadrada de tamaño $n \times n$. Las siguientes proposiciones son equivalentes, es decir, todas son verdaderas o todas son falsas:
+        </p>
+        <ol class="mt-4 space-y-2 text-slate-700 list-decimal list-inside font-medium pl-4">
+            <li>$\mathbf{A}$ es invertible.</li>
+            <li>El sistema de ecuaciones lineales homogéneas $\mathbf{A}\vec{x} = \vec{0}$ solo tiene la solución trivial.</li>
+            <li>La forma escalonada reducida de $\mathbf{A}$ es $\mathbf{I}_n$.</li>
+            <li>$\mathbf{A}$ puede expresarse como un producto de matrices elementales.</li>
+        </ol>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración 1
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-base font-bold text-slate-900 mb-4">Prueba de $\mathbf{A}$ invertible $\Rightarrow \mathbf{A}\vec{x} = \vec{0}$ solo trivial</p>
+                <div id="demostracion-1-16-a">
+                    <p class="text-sm italic mb-4">
+                        Hacemos la demostración de la equivalencia de las proposiciones demostrando la siguiente cadena de implicaciones:
+                        $$(a) \Rightarrow (b), \quad (b) \Rightarrow (c), \quad (c) \Rightarrow (d)$$
+$$\quad (d) \Rightarrow (a)$$
+$$\quad (a) \Rightarrow (b)$$
+                    </p>
+                    <p class="text-sm italic mb-4">
+                        Si a es invertible y multiplicamos el sistema de ecuaciones lineales homogéneas $\mathbf{A}\vec{x} = \vec{0}$ por $\mathbf{A}^{-1}$ solo tiene la solución trivial.
+                    </p>
+                    <p class="text-sm italic mb-2">
+                        Sea $\vec{x}$ cualquier vector tal que solamente $\mathbf{A}\vec{x} = \vec{0}$ es decir
+                    </p>
+                    <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                        $$ \mathbf{A}\vec{x} = \vec{0} \quad \cdots (1) $$
+                    </div>
+                    
+                    <p class="text-sm italic mb-2">
+                        Sea A invertible y multiplicamos a (1) por $\mathbf{A}^{-1}$
+                    </p>
+                    <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                        $$ \mathbf{A}^{-1}(\mathbf{A}\vec{x}) = \mathbf{A}^{-1}\vec{0} $$
+                        $$ (\mathbf{A}^{-1}\mathbf{A})\vec{x} = \vec{0} $$
+                        $$ \mathbf{I}\vec{x} = \vec{0} \quad \text{o bien} \quad \vec{x} = \vec{0} $$
+                    </div>
+                    <p class="text-sm italic font-bold mt-4">
+                        Por lo tanto, el sistema $\mathbf{A}\vec{x} = \vec{0}$ solo tiene la solución trivial.
+                    </p>
+                </div>
+            </div>
+        </details>
+
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración 2
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-base font-bold text-slate-900 mb-4">Prueba de $\mathbf{A}\vec{x} = \vec{0}$ solo trivial $\Rightarrow \mathrm{RREF}(\mathbf{A}) = \mathbf{I}_n$</p>
+                <div id="demostracion-1-16-b">
+                    <p class="text-sm italic mb-4">
+                        Si el sistema de ecuaciones lineales homogéneas $\mathbf{A}\vec{x} = \vec{0}$ solo tiene la solución trivial, entonces la forma escalonada reducida de A es $\mathbf{I}_n$
+                    </p>
+                    <p class="text-sm italic mb-4">
+                        Esto representa el siguiente sistema de ecuaciones:
+                    </p>
+                    <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                        $$
+                        \begin{array}{ccccccc}
+                        a_{11}x_1 & + & a_{12}x_2 & + & \dots & + & a_{1n}x_n & = & 0 \\
+                        a_{21}x_1 & + & a_{22}x_2 & + & \dots & + & a_{2n}x_n & = & 0 \\
+                        \vdots & & \vdots & & \ddots & & \vdots & & \vdots \\
+                        a_{n1}x_1 & + & a_{n2}x_2 & + & \dots & + & a_{nn}x_n & = & 0
+                        \end{array}
+                        $$
+                    </div>
+                    
+                    <p class="text-sm italic mb-4">
+                        La matriz aumentada del sistema es:
+                    </p>
+                    <div class="bg-white p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                        $$
+                        \begin{bmatrix}
+                        a_{11} & a_{12} & \dots & a_{1n} & | & 0 \\
+                        a_{21} & a_{22} & \dots & a_{2n} & | & 0 \\
+                        \vdots & \vdots & \ddots & \vdots & | & \vdots \\
+                        a_{n1} & a_{n2} & \dots & a_{nn} & | & 0
+                        \end{bmatrix}
+                        $$
+                    </div>
+                    
+                    <p class="text-sm italic mb-4">
+                        Como la única solución es la trivial ($\vec{x} = \vec{0}$), al aplicar el método de eliminación de Gauss-Jordan para llevar la matriz a su forma escalonada reducida, se obtiene:
+                    </p>
+                    <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                        $$
+                        \begin{bmatrix}
+                        a_{11} & a_{12} & \dots & a_{1n} & | & 0 \\
+                        a_{21} & a_{22} & \dots & a_{2n} & | & 0 \\
+                        \vdots & \vdots & \ddots & \vdots & | & \vdots \\
+                        a_{n1} & a_{n2} & \dots & a_{nn} & | & 0
+                        \end{bmatrix}
+                        \sim
+                        \begin{bmatrix}
+                        1 & 0 & \dots & 0 & | & 0 \\
+                        0 & 1 & \dots & 0 & | & 0 \\
+                        \vdots & \vdots & \ddots & \vdots & | & \vdots \\
+                        0 & 0 & \dots & 1 & | & 0
+                        \end{bmatrix}
+                        $$
+                    </div>
+                    
+                    <p class="text-sm italic font-bold mt-4">
+                        De forma que la forma escalonada reducida de A es $\mathbf{I}_n$
+                    </p>
+                </div>
+            </div>
+        </details>
+
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración 3
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                <p class="text-sm italic mb-4">
+                    Hacemos la demostración de la equivalencia de las proposiciones demostrando la siguiente cadena de implicaciones:
+                    $$ (a) \Rightarrow (b), \quad (b) \Rightarrow (c), \quad (c) \Rightarrow (d), $$
+                    $$ (d) \Rightarrow (a) $$
+                    $$ (c) \Rightarrow (d) $$
+                </p>
+                <p class="text-base font-bold text-slate-900 mb-2">Demostración de la implicación $(\mathbf{c}) \Rightarrow (\mathbf{d})$</p>
+                <p class="text-sm italic mb-4">
+                    Si la forma escalonada reducida de A  es $\mathbf{I}_n$, entonces  A  puede expresarse como un producto de matrices elementales.
+                </p>
+                <p class="text-sm italic mb-2">
+                    Sea $\mathbf{E}_k, \mathbf{E}_{k-1}, \dots, \mathbf{E}_2, \mathbf{E}_1$ el número de matrices elementales, tales que:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{E}_k \mathbf{E}_{k-1} \cdots \mathbf{E}_2 \mathbf{E}_1 \mathbf{A} = \mathbf{I} \quad (*)$$
+                </div>
+                <p class="text-sm italic mb-4">
+                    Por el **Teorema 1.15** toda matriz elemental es invertible. Multiplicamos la ecuación $(*)$ por la inversa de cada matriz elemental en orden de derecha a izquierda:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A} = \mathbf{E}_1^{-1} \mathbf{E}_2^{-1} \cdots \mathbf{E}_k^{-1} $$
+                </div>
+                <p class="text-sm italic font-bold mt-4">
+                    Por el Teorema 1.15, la inversa de una matriz elemental es también una matriz elemental. Por lo tanto, A es igual a un producto de matrices elementales.
+                </p>
+            </div>
+        </details>
+
+        <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 leading-relaxed">
+           Conclusión: Demostración de $(\mathbf{d}) \Rightarrow (\mathbf{a})$</p>
+            <p class="text-sm italic">
+                Si A puede expresarse como un producto de matrices elementales, entonces A es invertible.
+            </p>
+            <p class="text-sm mt-2">
+                Como A  es igual a un producto de matrices elementales, por el Teorema 1.15 cada matriz elemental es invertible.
+            </p>
+            <p class="text-sm mt-2">
+                Por el Teorema 1.9 (Condición de invertibilidad para el producto), el producto de matrices invertibles es invertible. Por lo tanto, A es invertible.
+            </p>
+            <p class="text-sm font-bold mt-4">
+                Esto completa la cadena de implicaciones, probando que las cuatro proposiciones son equivalentes.
+            </p>
+        </div>
+        
+    </div>
+</article>
+
+
+
+
+<article id="teo118" class="rounded-3xl border border-slate-200 bg-white shadow-xl hover:shadow-2xl transition duration-300">
+    <header class="p-6 md:p-10 border-b border-slate-100 bg-slate-50 rounded-t-3xl">
+        <h2 class="text-2xl font-bold text-violet-800">Teorema 1.17 </h2>
+        <p class="text-slate-600 mt-2 text-lg">
+            Sea $\mathbf{A}$ una matriz cuadrada de $n \times n$ y sea $\vec{b}$ una matriz columna de tamaño $n \times 1$. Si $\mathbf{A}$ es invertible, entonces el sistema de ecuaciones lineales no homogéneo $\mathbf{A}\vec{x} = \vec{b}$ tiene *solución única*, dada por:
+        </p>
+        <p class="mt-4 text-xl font-bold text-center text-slate-900">
+            $$ \vec{x} = \mathbf{A}^{-1}\vec{b} $$
+        </p>
+    </header>
+    <div class="p-6 md:p-10 space-y-6">
+        <details class="group p-4 bg-violet-50 rounded-xl border border-violet-200">
+            <summary class="cursor-pointer select-none font-semibold text-slate-900 flex items-center justify-between">
+                Demostración
+                <span class="text-xs px-3 py-1 rounded-full bg-violet-200 text-violet-800 font-medium">Ver detalles</span>
+            </summary>
+            <div class="mt-4 text-slate-700 leading-relaxed border-t border-violet-200 pt-4">
+                
+                <p class="text-base font-bold text-slate-900 mb-4">Demostración</p>
+                <p class="text-sm italic mb-2">
+                    Claramente $\vec{x} = \mathbf{A}^{-1}\vec{b}$ es solución de $\mathbf{A}\vec{x} = \vec{b}$, pues al sustituir se tiene:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A}(\mathbf{A}^{-1}\vec{b}) = (\mathbf{A}\mathbf{A}^{-1})\vec{b} = \mathbf{I}\vec{b} = \vec{b} $$
+                </div>
+
+                <p class="text-sm italic mb-2">
+                    Sea $\vec{x}_1$ otra solución de $\mathbf{A}\vec{x} = \vec{b}$, así que sustituyendo se tiene:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A}\vec{x}_1 = \vec{b} \quad \cdots (1) $$
+                </div>
+                
+                <p class="text-sm italic mb-2">
+                    Como $\mathbf{A}$ es invertible, multiplicamos por $\mathbf{A}^{-1}$ por la izquierda:
+                </p>
+                <div class="bg-slate-100 p-4 rounded-xl text-sm border border-slate-200 text-slate-700 overflow-auto mb-4 text-center">
+                    $$ \mathbf{A}^{-1}(\mathbf{A}\vec{x}_1) = \mathbf{A}^{-1}\vec{b} $$
+                    $$ (\mathbf{A}^{-1}\mathbf{A})\vec{x}_1 = \mathbf{A}^{-1}\vec{b} $$
+                    $$ \mathbf{I}\vec{x}_1 = \mathbf{A}^{-1}\vec{b} $$
+                    $$ \vec{x}_1 = \mathbf{A}^{-1}\vec{b} $$
+                </div>
+                
+                <p class="text-sm italic font-bold mt-4">
+                    De modo que la solución es única. Esto demuestra que la única solución posible es $\vec{x} = \mathbf{A}^{-1}\vec{b}$.
+                </p>
+            </div>
+        </details>
+    </div>
+</article>
+
+
+
+
+            <section id="fuente" class="rounded-3xl border border-slate-200 bg-white shadow-xl p-8 md:p-10 mt-6">
+
+                <h3 class="text-2xl font-bold text-slate-900">Fuente del Material</h3>
+
+                <p class="text-slate-600 mt-3 max-w-2xl">
+
+                    El contenido de teoremas y demostraciones ha sido adaptado del material base proporcionado. Este sitio es un recurso de apoyo académico para el estudio del Álgebra Lineal.
+
+                </p>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <footer class="py-10 border-t border-slate-200 bg-slate-50">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+
+            <p class="text-sm text-slate-500">© <span id="year"></span> Álgebra Lineal. Material educativo y de referencia.</p>
+
+            <div class="text-sm text-slate-500">Diseñado con <span class="text-red-500">❤️</span> y <span class="text-violet-600 font-bold">MathJax</span>.</div>
+
+        </div>
+
+    </footer>
+
+    <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+
+</main>
+
+    <footer class="text-center py-10 text-sm text-slate-500">
+        &copy; <span id="year"></span> Álgebra Lineal.
+    </footer>
+
+    <script>
+        // Inicializa el año actual en el footer
+        const yearElement = document.getElementById('year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+
+        /**
+         * Maneja el evento de pulsación de tecla en la caja de búsqueda.
+         */
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        }
+
+        /**
+         * Ejecuta la lógica principal de búsqueda (scroll y resaltado).
+         */
+        function performSearch() {
+            const input = document.getElementById('teorema-search');
+            if (!input) return; 
+
+            // Normalización de la Consulta: "1.4" -> "teo14"
+            const rawQuery = input.value.trim().toLowerCase();
+            let cleanQuery = rawQuery.replace(/teorema\s*/, '').replace(/\./g, ''); 
+            
+            if (!cleanQuery.startsWith('teo')) {
+                cleanQuery = 'teo' + cleanQuery;
+            }
+
+            const targetId = cleanQuery; 
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                // Desplazamiento (Scroll)
+                const headerOffset = 80; 
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+
+                // Efecto visual temporal (Resaltado)
+                targetElement.style.transition = 'box-shadow 0.3s ease-in-out, border 0.3s ease-in-out';
+                targetElement.classList.add('shadow-violet-400/80', 'ring-4', 'ring-violet-300');
+                
+                setTimeout(() => {
+                    targetElement.classList.remove('shadow-violet-400/80', 'ring-4', 'ring-violet-300');
+                    targetElement.style.transition = ''; 
+                }, 2000);
+            } else {
+                // Teorema no encontrado
+                alert('Teorema "' + input.value.trim() + '" no encontrado. Asegúrate de usar el formato "1.1" o "teo11".');
+            }
+        }
+    </script>
+</body>
+</html>      
